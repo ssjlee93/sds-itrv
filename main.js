@@ -32,3 +32,15 @@ app.whenReady().then(() => {
 app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') app.quit()
 })
+
+ipcMain.handle('create-folder', async (event, folderPath) => {
+    try {
+      if (!fs.existsSync(folderPath)) {
+        fs.mkdirSync(folderPath);
+        return { success: true };
+      } else {
+        return { success: false, message: 'Folder already exists' };
+      }
+    } catch (error) {
+      return { success: false, message: error.message };
+    }

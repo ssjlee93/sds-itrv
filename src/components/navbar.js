@@ -43,6 +43,10 @@ export default function Navbar() {
                         className={`text-gray-300 hover:text-white ${auth ? 'block' : 'hidden'}`}>
                         Logout
                     </Link>
+                    <Link href="/chat"
+                        className={`text-gray-300 hover:text-white `}>
+                        Chat
+                    </Link>
                 </div>
             </div>
         </nav>
