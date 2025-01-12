@@ -1,6 +1,7 @@
 // console.log('Hello from Electron 👋')
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow, ipcMain } = require('electron')
 const path = require('node:path')
+const fs = require('node:fs')
 
 const createWindow = () => {
     const win = new BrowserWindow({
@@ -44,3 +45,13 @@ ipcMain.handle('create-folder', async (event, folderPath) => {
     } catch (error) {
       return { success: false, message: error.message };
     }
+});
+
+ipcMain.handle('create-file', async (event, filePath, content) => {
+    try {
+      fs.writeFileSync(filePath, content);
+      return { success: true };
+    } catch (error) {
+      return { success: false, message: error.message };
+    }
+  });
